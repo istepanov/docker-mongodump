@@ -1,4 +1,6 @@
 #!/bin/bash
 
-echo "0 12 * * * /backup.sh" | crontab -
+CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
+
+echo "$CRON_SCHEDULE /backup.sh" | crontab -
 exec cron -f
