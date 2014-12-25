@@ -1,4 +1,5 @@
 from mongo
+MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 RUN apt-get update && \
     apt-get install -y cron && \
