@@ -1,4 +1,4 @@
-FROM mongo
+FROM mongo:2.6
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 RUN apt-get update && \
