@@ -13,4 +13,5 @@ RUN chmod +x /start.sh
 
 VOLUME /backup
 
-CMD '/start.sh'
+ENTRYPOINT ["/start.sh"]
+CMD [""]
