@@ -2,6 +2,8 @@
 
 set -e
 
+source /tmp/mongodump_env
+
 DATE=$(date +%Y%m%d_%H%M%S)
 FILE="/backup/backup-$DATE.tar.gz"
 
