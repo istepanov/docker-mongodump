@@ -1,4 +1,4 @@
-FROM mongo:2.6
+FROM mongo
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 RUN apt-get update && \
@@ -10,6 +10,10 @@ RUN chmod +x /backup.sh
 
 ADD start.sh /start.sh
 RUN chmod +x /start.sh
+
+RUN touch /var/log/cron.log
+
+ADD crontab /crontab
 
 VOLUME /backup
 
