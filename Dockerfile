@@ -11,6 +11,8 @@ RUN chmod +x /backup.sh
 ADD start.sh /start.sh
 RUN chmod +x /start.sh
 
+ADD crontab /crontab
+
 VOLUME /backup
 
 ENTRYPOINT ["/start.sh"]
