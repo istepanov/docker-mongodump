@@ -1,7 +1,7 @@
 docker-mongodump
 ================
 
-Docker image with mongodump running as a cron task
+This is a fork of https://github.com/istepanov/docker-mongodump -- Docker image with mongodump running as a cron task. I added scripts to automatize installation for a backup docker container.
 
 ### How To Use
 First you have to build docker image from the repository:
