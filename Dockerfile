@@ -1,9 +1,9 @@
-FROM mongo:2.6
+FROM mongo:3.0
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 RUN apt-get update && \
     apt-get install -y cron && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ADD backup.sh /backup.sh
 RUN chmod +x /backup.sh
