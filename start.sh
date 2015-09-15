@@ -9,9 +9,12 @@ CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
 if [[ "$1" == 'no-cron' ]]; then
     exec /backup.sh
 else
-    touch /var/log/cron.log
-    echo "$CRON_SCHEDULE /backup.sh >> /var/log/cron.log 2>&1"
-    echo "$CRON_SCHEDULE /backup.sh >> /var/log/cron.log 2>&1" | crontab -
+    LOGFIFO='/var/log/cron.fifo'
+    if [[ ! -e "$LOGFIFO" ]]; then
+        mkfifo "$LOGFIFO"
+    fi
+    echo "$CRON_SCHEDULE /backup.sh > $LOGFIFO 2>&1"
+    echo "$CRON_SCHEDULE /backup.sh > $LOGFIFO 2>&1" | crontab -
     cron
-    tail -f /var/log/cron.log
+    tail -f "$LOGFIFO"
 fi
