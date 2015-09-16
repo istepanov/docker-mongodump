@@ -13,8 +13,8 @@ else
     if [[ ! -e "$LOGFIFO" ]]; then
         mkfifo "$LOGFIFO"
     fi
-    echo "$CRON_SCHEDULE /backup.sh > $LOGFIFO 2>&1"
     echo "$CRON_SCHEDULE /backup.sh > $LOGFIFO 2>&1" | crontab -
+    crontab -l
     cron
     tail -f "$LOGFIFO"
 fi
