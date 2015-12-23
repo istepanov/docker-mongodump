@@ -19,3 +19,12 @@ To run backup once without cron job, add `no-cron` parameter:
         -v /path/to/target/folder:/backup \ # where to put backups
         --link my-mongo-container:mongo \   # linked container with running mongo
         istepanov/mongodump no-cron
+
+To backup only one database, set environment variable `MONGO_DB_NAME`
+
+    docker run -d \
+        -v /path/to/target/folder:/backup \ # where to put backups
+        -e 'CRON_SCHEDULE=0 1 * * *' \      # cron job schedule
+        -e 'MONGO_DB_NAME=<db_name>' \     # set database name
+        --link my-mongo-container:mongo \   # linked container with running mongo
+        istepanov/mongodump
