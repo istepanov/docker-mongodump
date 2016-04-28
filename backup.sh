@@ -15,5 +15,20 @@ fi
 mongodump "${arr[@]}"
 tar -zcvf $FILE dump/
 rm -rf dump/
-
 echo "Job finished: $(date)"
+echo "Start autoclean"
+FILES=/backup/*.tar.gz
+currtime=`date +%s`
+for f in $FILES
+do
+	if [-f $f];
+	then
+		filemtime=`stat -c %Y $f`
+		diff=$(( (currtime - filemtime)/86400))
+		if (($diff > $MONGO_BACKUP_EXPIRE_DAYS));
+		then
+			rm $f
+		fi
+	fi
+done
+echo "End autoclean"

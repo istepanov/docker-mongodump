@@ -28,3 +28,6 @@ To backup only one database, set environment variable `MONGO_DB_NAME`
         -e 'MONGO_DB_NAME=<db_name>' \     # set database name
         --link my-mongo-container:mongo \   # linked container with running mongo
         istepanov/mongodump
+
+By default, backups available for last 30 days only. To manage it, set environment
+variable `MONGO_BACKUP_EXPIRE_DAYS`
