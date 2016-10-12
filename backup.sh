@@ -4,6 +4,9 @@ set -e
 
 echo "Job started: $(date)"
 
+echo "deleting files older than 30 days"
+find /backup -mtime +30 -type f -delete
+
 DATE=$(date +%Y%m%d_%H%M%S)
 FILE="/backup/backup-$DATE.tar.gz"
 
