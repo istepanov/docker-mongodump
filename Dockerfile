@@ -1,5 +1,5 @@
-FROM mongo:3.0
-MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
+FROM mongo:3.4
+MAINTAINER Artem Kurbatov <mail@tenorok.ru>
 
 RUN apt-get update && \
     apt-get install -y cron && \
