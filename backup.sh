@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Job started: $(date)"
+echo "$(date +%Y-%m-%d:%H:%M:%S) job started"
 
 DATE=$(date +%Y%m%d_%H%M%S)
 DIR="/backup"
@@ -13,25 +13,31 @@ else
     FILE="$DIR/$DATE"
 fi
 
-command="mongodump --quiet -h $MONGO_PORT_27017_TCP_ADDR -p $MONGO_PORT_27017_TCP_PORT --gzip"
+command="mongodump -h $MONGO_PORT_27017_TCP_ADDR -p $MONGO_PORT_27017_TCP_PORT --gzip"
+
+# All output of mongodump is stderr, therefore filter the errors manually.
+filter_errors="2> >(grep -i 'failed\|error')"
 
 if [[ $MONGO_DB_NAMES ]]; then
     dbs=( $MONGO_DB_NAMES )
+    filename=$FILE
 
     for d in ${dbs[@]}
     do
         if [[ ! $BACKUP_FILE_NAME ]]; then
             filename="$FILE-$d"
         fi
-        eval $command " --archive=$filename -d $d"
+        eval $command --archive=$filename -d $d $filter_errors
+        echo "$(date +%Y-%m-%d:%H:%M:%S) dumped database: $filename"
     done
 else
-    eval $command " --archive=$FILE"
+    eval $command --archive=$FILE $filter_errors
+    echo "$(date +%Y-%m-%d:%H:%M:%S) dumped all databases: $FILE"
 fi
 
 if [[ $BACKUP_EXPIRE_DAYS ]]; then
-    echo "Removing backups older than $BACKUP_EXPIRE_DAYS days"
     find $DIR -mtime +$BACKUP_EXPIRE_DAYS -type f -delete
+    echo "$(date +%Y-%m-%d:%H:%M:%S) removed backups older than $BACKUP_EXPIRE_DAYS days"
 fi
 
-echo "Job finished: $(date)"
+printf "$(date +%Y-%m-%d:%H:%M:%S) job finished\n\n"
