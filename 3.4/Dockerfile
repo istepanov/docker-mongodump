@@ -1,4 +1,4 @@
-FROM mongo:3.0
+FROM mongo:3.4
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 RUN apt-get update && \
@@ -6,10 +6,8 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ADD backup.sh /backup.sh
-RUN chmod +x /backup.sh
-
 ADD start.sh /start.sh
-RUN chmod +x /start.sh
+RUN chmod +x /start.sh && chmod +x /backup.sh
 
 VOLUME /backup
 
