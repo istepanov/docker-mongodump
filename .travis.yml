@@ -13,4 +13,4 @@ before_install:
 
 script:
   - cd $MONGO_VERSION && docker build -t istepanov/mongodump:$MONGO_VERSION .
-  - docker run -t istepanov/mongodump:$MONGO_VERSION no-cron
+  - docker run -t --link mongo:mongo istepanov/mongodump:$MONGO_VERSION no-cron
