@@ -3,8 +3,8 @@
 set -e
 
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
-MONGO_HOST=${MONGO_HOST:-mongo}
-MONGO_PORT=${MONGO_PORT:-27017}
+export MONGO_HOST=${MONGO_HOST:-mongo}
+export MONGO_PORT=${MONGO_PORT:-27017}
 
 if [[ "$1" == 'no-cron' ]]; then
     exec /backup.sh
