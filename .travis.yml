@@ -15,3 +15,6 @@ script:
   - cd $MONGO_VERSION && docker build -t istepanov/mongodump:$MONGO_VERSION .
   - docker run -t --link mongo:mongo -v $(pwd)/backup:/backup istepanov/mongodump:$MONGO_VERSION no-cron
   - '[ "$(ls -A backup)" ] || travis_terminate 1'
+  - docker run -d --link mongo:mongo -v $(pwd)/backup_cron:/backup -e 'CRON_SCHEDULE=* * * * *' istepanov/mongodump:$MONGO_VERSION
+  - sleep 3m
+  - '[ "$(ls -A backup_cron)" ] || travis_terminate 1'
