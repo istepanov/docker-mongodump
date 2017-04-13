@@ -21,3 +21,29 @@ To run backup once without cron job, add `no-cron` parameter:
         -v /path/to/target/folder:/backup \ # where to put backups
         --link my-mongo-container:mongo \   # linked container with running mongo
         istepanov/mongodump no-cron
+
+#### Docker Compose example:
+
+    version: '3'
+
+    services:
+      mongo:
+        image: "mongo:3.4"
+
+      mongo-backup:
+        image: "istepanov/mongodump:3.4"
+        volumes:
+          - mongo-backup:/backup
+        environment:
+          CRON_SCHEDULE: '0 1 * * *'
+        depends_on:
+          - mongo
+
+    volumes:
+      mongo-backup:
+
+#### Environment variables:
+
+* `CRON_SCHEDULE` - cron schedule (default is `0 1 * * *`)
+* `MONGO_HOST` - Mongo server hostname (default is `mongo`)
+* `MONGO_PORT` - Mongo server port (default is `27017`)
