@@ -13,7 +13,11 @@ else
     FILE="$DIR/$DATE"
 fi
 
-command="mongodump -h $MONGO_PORT_27017_TCP_ADDR -p $MONGO_PORT_27017_TCP_PORT --gzip"
+if [[ $MONGO_USERNAME ]]; then
+    command="mongodump -u $MONGO_USERNAME -p $MONGO_PASSWORD -h $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --gzip"
+else
+    command="mongodump -h $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --gzip"
+fi
 
 # All output of mongodump is stderr, therefore filter the errors manually.
 filter_errors="2> >(grep -i 'failed\|error')"

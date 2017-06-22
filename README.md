@@ -84,3 +84,16 @@ docker run -d \
     -e 'BACKUP_FILE_NAME=express' \     # custom name for backup archive
     tenorok/mongodumper
 ```
+
+### Option `MONGO_USERNAME`, `MONGO_PASSWORD`
+
+If your mongodb need user and password to access, you need set them in your environment.
+
+```bash
+docker run -d \
+    -v /path/to/my-folder:/backup \
+    --link my-mongo-container:mongo \
+    -e 'MONGO_USERNAME=root' \          # mongo -u $MONGO_USERNAME
+    -e 'MONGO_PASSWORD=rootpassword' \  # mongo -p $MONGO_PASSWORD
+    tenorok/mongodumper
+```
