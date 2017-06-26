@@ -29,13 +29,13 @@ if [[ $MONGO_DB_NAMES ]]; then
     for d in ${dbs[@]}
     do
         if [[ ! $BACKUP_FILE_NAME ]]; then
-            filename="$FILE-$d"
+            filename="$FILE-$d.gz"
         fi
         eval $command --archive=$filename -d $d $filter_errors
         echo "$(date +%Y-%m-%d:%H:%M:%S) dumped database: $filename"
     done
 else
-    eval $command --archive=$FILE $filter_errors
+    eval $command --archive="$FILE.gz" $filter_errors
     echo "$(date +%Y-%m-%d:%H:%M:%S) dumped all databases: $FILE"
 fi
 
