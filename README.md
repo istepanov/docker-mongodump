@@ -39,8 +39,8 @@ Docker Compose example (no S3 upload, keep backups in `mongo-backup` Docker volu
         volumes:
           - mongo-backup:/backup
         environment:
-          MONGO_URI: 'mongodb://mongo:27017'
-          CRON_SCHEDULE: '0 1 * * *'
+          MONGO_URI: "mongodb://mongo:27017"
+          CRON_SCHEDULE: "0 1 * * *"
         depends_on:
           - mongo
 

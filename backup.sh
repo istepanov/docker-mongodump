@@ -8,7 +8,7 @@ DATE=$(date +%Y%m%d_%H%M%S)
 FILE="/backup/backup-$DATE.tar.gz"
 
 mkdir -p dump
-mongodump --uri "MONGO_URI"
+mongodump --uri "$MONGO_URI"
 tar -zcvf "$FILE" dump/
 rm -rf dump/
 
