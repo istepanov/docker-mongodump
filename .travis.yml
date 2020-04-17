@@ -4,9 +4,9 @@ services:
   - docker
 
 env:
-  - MONGO_VERSION=3.0
-  - MONGO_VERSION=3.2
-  - MONGO_VERSION=3.4
+  - MONGO_VERSION=3.6
+  - MONGO_VERSION=4.0
+  - MONGO_VERSION=4.2
 
 before_install:
   - docker run -d --name mongo -d mongo:$MONGO_VERSION
