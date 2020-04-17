@@ -1,8 +1,6 @@
 istepanov/mongodump
 ===================
 
-[![Build Status](https://travis-ci.org/istepanov/docker-mongodump.svg?branch=master)](https://travis-ci.org/istepanov/docker-mongodump)
-
 Docker image with mongodump running as a cron task
 
 ### Usage
