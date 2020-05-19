@@ -13,10 +13,14 @@ else
     FILE="$DIR/$DATE"
 fi
 
+command="mongodump --host $MONGO_HOST --port $MONGO_PORT --gzip"
+
 if [[ $MONGO_USERNAME ]]; then
-    command="mongodump -u $MONGO_USERNAME -p $MONGO_PASSWORD -h $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --gzip"
-else
-    command="mongodump -h $MONGO_PORT_27017_TCP_ADDR --port $MONGO_PORT_27017_TCP_PORT --gzip"
+    command+=" -u $MONGO_USERNAME"
+
+    if [[ $MONGO_PASSWORD ]]; then
+        command+=" -p $MONGO_PASSWORD"
+    fi
 fi
 
 # All output of mongodump is stderr, therefore filter the errors manually.
