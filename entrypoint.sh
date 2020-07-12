@@ -3,6 +3,7 @@
 set -e
 
 export MONGO_URI=${MONGO_URI:-mongodb://mongo:27017}
+export TARGET_FOLDER=${TARGET_FOLDER-/backup}   # can be set to null
 
 # Optional env vars:
 # - CRON_SCHEDULE
@@ -16,6 +17,9 @@ if [[ "$CRON_SCHEDULE" ]]; then
         mkfifo "$LOGFIFO"
     fi
     CRON_ENV="MONGO_URI='$MONGO_URI'"
+    if [[ "$TARGET_FOLDER" ]]; then
+        CRON_ENV="$CRON_ENV\nTARGET_FOLDER='$TARGET_FOLDER'"
+    fi
     if [[ "$TARGET_S3_FOLDER" ]]; then
         CRON_ENV="$CRON_ENV\nTARGET_S3_FOLDER='$TARGET_S3_FOLDER'"
     fi
