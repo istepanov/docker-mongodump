@@ -14,7 +14,7 @@ if [[ -z "$TARGET_FOLDER" ]]; then
         exit 1
     fi
 
-    mongodump --uri "$MONGO_URI" --gzip --archive | aws s3 cp - "${TARGET_S3_FOLDER%/}/backup-$DATE.tar.gz"
+    mongodump --uri "$MONGO_URI" --gzip --archive | `which aws` s3 cp - "${TARGET_S3_FOLDER%/}/backup-$DATE.tar.gz"
     echo "Mongo dump uploaded to $TARGET_S3_FOLDER"
 else
     # save dump locally (and optionally to AWS S3)
@@ -26,7 +26,7 @@ else
     echo "Mongo dump saved to $FILE"
 
     if [[ -n "$TARGET_S3_FOLDER" ]]; then
-        aws s3 cp "$FILE" "$TARGET_S3_FOLDER"
+        `which aws` s3 cp "$FILE" "$TARGET_S3_FOLDER"
         echo "$FILE uploaded to $TARGET_S3_FOLDER"
     fi
 fi
