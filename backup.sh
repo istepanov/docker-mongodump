@@ -4,7 +4,9 @@ set -eo pipefail
 
 echo "Job started: $(date)"
 
-DATE=$(date +%Y%m%d_%H%M%S)
+if [[ -z $DATE ]]; then
+    DATE=$(date +%Y%m%d_%H%M%S)
+fi
 
 if [[ -z "$TARGET_FOLDER" ]]; then
     # dump directly to AWS S3
