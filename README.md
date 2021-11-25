@@ -13,6 +13,8 @@ Docker image with `mongodump`, `cron` and AWS CLI to upload backups to AWS S3.
 | `TARGET_S3_FOLDER`      | Folder to upload backups. Leave it empty to disable upload to S3. | `''` |
 | `AWS_ACCESS_KEY_ID`     | AWS Access Key ID. Leave empty if you want to use AWS IAM Role instead. | `''` |
 | `AWS_SECRET_ACCESS_KEY` | AWS Access Key ID. Leave empty if you want to use AWS IAM Role instead. | `''` |
+| `TZ`                    | Timezone | `''` |
+| `DATE` | Override Date in generated Filename. Leave empty to use $(date +%Y%m%d_%H%M%S) | `''` |
 
 ### Examples
 
