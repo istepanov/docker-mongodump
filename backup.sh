@@ -4,7 +4,7 @@ set -eo pipefail
 
 echo "Job started: $(date)"
 
-if [[ -z $DATE ]]; then
+if [[ -z "$DATE" ]]; then
     DATE=$(date +%Y%m%d_%H%M%S)
 fi
 
