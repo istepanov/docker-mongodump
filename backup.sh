@@ -4,7 +4,9 @@ set -eo pipefail
 
 echo "Job started: $(date)"
 
-DATE=$(date +%Y%m%d_%H%M%S)
+if [[ -z "$DATE" ]]; then
+    DATE=$(date +%Y%m%d_%H%M%S)
+fi
 
 if [[ -z "$TARGET_FOLDER" ]]; then
     # dump directly to AWS S3
@@ -14,7 +16,7 @@ if [[ -z "$TARGET_FOLDER" ]]; then
         exit 1
     fi
 
-    mongodump --uri "$MONGO_URI" --gzip --archive | aws s3 cp - "${TARGET_S3_FOLDER%/}/backup-$DATE.tar.gz"
+    mongodump --uri "$MONGO_URI" --gzip --archive | /usr/local/bin/aws s3 cp - "${TARGET_S3_FOLDER%/}/backup-$DATE.tar.gz"
     echo "Mongo dump uploaded to $TARGET_S3_FOLDER"
 else
     # save dump locally (and optionally to AWS S3)
